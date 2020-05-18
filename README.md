@@ -1,4 +1,4 @@
-# Alogent Digital Code Assessment
+# Alogent Full Stack Coding Assessment
 
 ## Application Description
 
