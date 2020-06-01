@@ -12,7 +12,8 @@ namespace Assessment.Web.Models
         IQueryable<Board> GetAll();
         Board Find(int id);
         bool Add(Board board);
-        bool Delete(Board board);
+        bool Delete(int id);
+        bool AddPostIt(int id, PostIt postIt);
     }
 
     public class BoardRepository : IBoardRepository
@@ -47,16 +48,31 @@ namespace Assessment.Web.Models
         public bool Add(Board board)
         {
             if (Find(board.Id) != null) return false;
-
+            board.CreatedAt = DateTime.Now;
             boards.Add(board);
 
             return true;
         }
 
-        public bool Delete(Board board)
+        public bool Delete(int id)
         {
-            if (Find(board.Id) == null) return false;
+            var board = Find(id);
+            if (board == null) return false;
             return boards.Remove(board);
         }
+
+        public bool AddPostIt(int id, PostIt postIt)
+        {
+            bool isAdded = false;
+
+            var board = Find(id);
+            if (board != null)
+            {
+                board.PostIts.Add(postIt);
+                isAdded = true;
+            }
+            return isAdded;
+        }
+
     }
 }

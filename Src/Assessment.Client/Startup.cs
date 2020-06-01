@@ -55,7 +55,12 @@ namespace Assessment
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    // workaround for TimeoutException: The Angular CLI process did not start
+                    // listening for requests within the timeout period
+
+                    //spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+
                 }
             });
         }
